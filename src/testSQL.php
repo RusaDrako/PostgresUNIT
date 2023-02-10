@@ -8,7 +8,6 @@ use Yii;
  * Класс для тестирования SQL-функций
  */
 class testSQL {
-
     /**
      * @var \yii\db\Connection БД
      */
@@ -76,20 +75,15 @@ class testSQL {
     public function assert($v1, $v2, $errText = NULL) {
         if ($v1 === $v2)
         {
-            if (!($this->countAssert % 20))
-            {
-                $this->bMessage();
-            }
-            echo ' ✓';
             $this->countAssert++;
             return;
         }
-        $this->bMessage(' ☓');
+        $this->bMessage(' F');
         $this->bMessage();
         $arr = debug_backtrace();
         $prefix = get_class($this) . " -> {$this->testNow}(): ";
         $text =  "{$prefix}Несовпадение переменных " . var_export($v1, 1) . " и " . var_export($v2, 1) . "\r\n\r\n{$arr[0]['file']} ({$arr[0]['line']})";
-        $this->bMessage(' ✕ ' . $text);
+        $this->bMessage(' ☓ ' . $text);
         throw new \Exception ($prefix . ($errText ?? $text));
     }
 
@@ -113,6 +107,8 @@ class testSQL {
      * @return void
      */
     public final function startTest() {
+        # Контрольное число проверок
+        $controlCountAssert = $this->countAssert;
         # Включаем транзакцию (не трогать, не удалять, а то можно всё похерить)
         $this->trn = $this->db->beginTransaction();
         # Выполняем дополнительные настройки класса
@@ -127,6 +123,13 @@ class testSQL {
         $this->afterTest();
         # Откатываем трнзакцию (не трогать, не удалять, а то можно всё похерить)
         $this->trn->rollBack();
+        # В тесте были проверки
+        if ($controlCountAssert < $this->countAssert) {
+            echo ' ✓';
+        # В тесте не было проверок
+        } else {
+            echo ' 0';
+        }
         $this->trn = null;
     }
 
