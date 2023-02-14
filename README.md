@@ -4,6 +4,8 @@
 
 Тест основан на выполнении действий в рамках транзакции с последующим её откатом.
 
+
+
 ## Соглашения
 
 - имя тестового класса должно соотвествовать имени тестируемого триггера или функции.
@@ -13,15 +15,27 @@
 
 ## Классы
 
-#### Класс PGUNIT_Test_Functions
+#### PGUNIT_Test_Functions
 
 Наследуемый класс, предназначеный для тестирования хранимых функций.
 
+```PHP
+namespace tests;
+
+class function_name extends \PGUNIT_Test_Functions {}
+```
 
 
-#### Класс PGUNIT_Test_Triggers
+
+#### PGUNIT_Test_Triggers
 
 Наследуемый класс, предназначеный для тестирования триггеров.
+
+```PHP
+namespace tests;
+
+class trigger_name extends \PGUNIT_Test_Triggers {}
+```
 
 *Перед выполнением тестовой функции отключает все триггеры для указанной таблицы, и активирует триггер с именем взятым из имени класса.*
 
@@ -152,7 +166,7 @@ namespace tests;
  * Тест функции function_name()
  * Функция должна возвращать значение стобца 'value' из таблицы 'table_test' по ключу 'key', либо NULL
  */
-class function_name extends \PG_UNIT_Test_Functions {
+class function_name extends \PGUNIT_Test_Functions {
 
     /**
      * Тест 1 (ключ в таблице отсутствует)
