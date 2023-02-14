@@ -152,7 +152,7 @@ class testSQL {
     public function afterTest() {}
 
     /**
-     * Удаляет все констрейны указанной таблицы (для более простого добавления тестовых данных)
+     * Удаляет все констрейны указанной таблицы, кроме primery key (для более простого добавления тестовых данных)
      * @param string $tableName Имя таблицы
      * @return void
      * @throws \yii\db\Exception
@@ -181,7 +181,7 @@ SQL;
 
     /**
      * Выполняет добавление данных в таблицу
-     * @param string $tableName Имя таблицы
+     * @param string $tableName Имя таблицы в которую добавляются данные
      * @param array $arrData Массив данных [['column_name'=>'column_value',...],...]
      * @param string $returnColumns Имена столбцов из которых надо вернуть данные
      * @return array|\yii\db\DataReader
