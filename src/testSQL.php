@@ -68,7 +68,7 @@ class testSQL {
      * Проверяет идентичность переданных значений
      * @param mixed $v1 Первое сравниваемое значение
      * @param mixed $v2 Второе сравниваемое значение
-     * @param string $errText Сообщение об ошибке
+     * @param string $errText Ваш текст сообщения об ошибке
      * @return void
      * @throws \Exception
      */
